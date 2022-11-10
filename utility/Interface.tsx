@@ -15,3 +15,10 @@ export interface InputProps {
   value: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
+
+export interface MemberProps {
+  name: string
+  country: string
+  phone: string
+  email: string
+}
