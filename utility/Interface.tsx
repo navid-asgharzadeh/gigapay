@@ -1,3 +1,7 @@
+export interface LoginProps {
+  name: string
+}
+
 export interface ButtonProps {
   children: React.ReactNode
   disabled?: boolean

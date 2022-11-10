@@ -1,3 +1,4 @@
+import { setSessionStorage } from 'hooks/useSessionStorage'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -6,7 +7,6 @@ import Button from './Button'
 import Input from './Input'
 
 const initialFormData = {
-  email: '',
   name: '',
 }
 function Login() {
@@ -19,9 +19,9 @@ function Login() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const handleSubmit = () => {
     console.log(formData)
+    setSessionStorage('name', formData.name)
     router.push('/dashboard')
   }
 
@@ -74,16 +74,6 @@ function Login() {
                   value={formData.name}
                   onChange={handleChange}
                   type="text"
-                />
-              </div>
-
-              <div className="col-span-6">
-                <Input
-                  name="email"
-                  label="Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  type="email"
                 />
               </div>
 
