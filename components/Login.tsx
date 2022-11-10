@@ -19,7 +19,8 @@ function Login() {
     })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
     console.log(formData)
     setSessionStorage('name', formData.name)
     router.push('/dashboard')
@@ -63,10 +64,7 @@ function Login() {
               </p>
             </div>
 
-            <form
-              onSubmit={handleSubmit}
-              className="mt-8 grid grid-cols-6 gap-6"
-            >
+            <form className="mt-8 grid grid-cols-6 gap-6">
               <div className="col-span-6">
                 <Input
                   name="name"

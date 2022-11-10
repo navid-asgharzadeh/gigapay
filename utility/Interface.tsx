@@ -5,7 +5,7 @@ export interface LoginProps {
 export interface ButtonProps {
   children: React.ReactNode
   disabled?: boolean
-  onClick?: () => void
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 export interface InputProps {
