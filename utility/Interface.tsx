@@ -16,6 +16,8 @@ export interface InputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
+export interface CardProps {}
+
 export interface MemberProps {
   name: string
   country: string
