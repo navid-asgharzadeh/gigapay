@@ -39,12 +39,6 @@ function Dashboard() {
     console.log(data)
   }
 
-  const isDisabled = () => {
-    return (
-      !formData.name || !formData.country || !formData.phone || !formData.email
-    )
-  }
-
   return (
     <div className="min-h-screen space-y-8">
       <h1 className="text-4xl text-center font-bold mt-16">
@@ -85,7 +79,7 @@ function Dashboard() {
               onChange={handleChange}
             />
 
-            <Button disabled={isDisabled()}>Add Member</Button>
+            <Button disabled={!formData.email}>Add Member</Button>
           </form>
         </div>
         {/* Show this when no member found */}
