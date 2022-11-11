@@ -9,13 +9,7 @@ import { toast } from 'react-toastify'
 import { createMember } from 'utility/apiCalls'
 import { useMutation } from '@tanstack/react-query'
 import type { AxiosError } from 'axios'
-
-const initialMember = {
-  name: '',
-  country: '',
-  phone: '',
-  email: '',
-}
+import { initialMember } from 'constants/const'
 
 function Dashboard({ members }: { members: Member[] }) {
   const [allMembers, setAllMembers] = useState<Member[]>(members)
