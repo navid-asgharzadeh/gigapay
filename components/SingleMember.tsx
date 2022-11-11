@@ -10,6 +10,7 @@ import { CardContent } from './Card'
 import Input from './Input'
 import type { AxiosError } from 'axios'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import Link from 'next/link'
 const initialMember = {
   name: '',
   country: '',
@@ -87,7 +88,13 @@ function SingleMember({ country, createdAt, email, id, name, phone }: Member) {
   }
 
   return (
-    <div className="min-h-screen space-y-8 max-w-2xl mx-auto flex flex-col  justify-center">
+    <div className="p-4 md:p-0 min-h-screen space-y-8 max-w-2xl mx-auto flex flex-col justify-center">
+      <Link
+        href="/dashboard"
+        className="text-sm font-bold hover:text-gray-400 transition-colors duration-300"
+      >
+        Go Back
+      </Link>
       <CardContent
         country={country}
         email={email}
@@ -137,7 +144,7 @@ function SingleMember({ country, createdAt, email, id, name, phone }: Member) {
         </div>
       )}
 
-      <div className="space-x-8 mx-auto">
+      <div className="flex flex-col md:flex-row md:space-x-8 space-y-6 md:space-y-0 mx-auto">
         <Button onClick={handleDelete} danger>
           {loading.delete ? 'Deleting...' : 'Delete'}
         </Button>

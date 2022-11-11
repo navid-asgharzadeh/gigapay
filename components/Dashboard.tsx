@@ -54,10 +54,10 @@ function Dashboard({ members }: { members: Member[] }) {
 
   return (
     <div className="min-h-screen space-y-8">
-      <h1 className="text-4xl text-center font-bold mt-16">
+      <h1 className="text-2xl md:text-4xl text-center font-bold mt-16">
         Welcome {name?.toUpperCase()} 👋
       </h1>
-      <div className="flex flex-col md:flex-row justify-between p-8 mx-auto ">
+      <div className="flex flex-col md:flex-row justify-between p-2 md:p-8 mx-auto ">
         <div className="md:w-2/5 mb-16 md:mb-0 px-4">
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
             <Input
@@ -104,7 +104,7 @@ function Dashboard({ members }: { members: Member[] }) {
           </p>
         )}
 
-        <div className="grid gap-8 space-x-1 p-4 lg:grid-cols-2">
+        <div className="grid gap-8 md:space-x-1 p-4 lg:grid-cols-2">
           {allMembers?.map((member) => (
             <Card
               key={member.id}
