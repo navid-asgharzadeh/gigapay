@@ -1,9 +1,18 @@
-import { Member } from '@prisma/client'
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query'
 import SingleMember from 'components/SingleMember'
+import { useRouter } from 'next/router'
+import { getMember } from 'utility/apiCalls'
 import { prisma } from '../../utility/db'
 
-function singleMember({ member }: { member: Member }) {
-  return <SingleMember {...member} />
+function MySingleMember() {
+  const router = useRouter()
+  const { id } = router.query as { id: string }
+  const { data: member } = useQuery({
+    queryKey: ['member'],
+    queryFn: () => getMember(id),
+  })
+
+  return <SingleMember {...member!} />
 }
 
 export async function getServerSideProps({
@@ -12,17 +21,22 @@ export async function getServerSideProps({
   params: { id: string }
 }) {
   const { id } = params
-  const member = await prisma.member.findUnique({
-    where: {
-      id,
-    },
-  })
+  const member = () =>
+    prisma.member.findUnique({
+      where: {
+        id,
+      },
+    })
+
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery(['member'], member)
 
   return {
     props: {
-      member: JSON.parse(JSON.stringify(member)),
+      dehydratedState: dehydrate(queryClient),
     },
   }
 }
 
-export default singleMember
+export default MySingleMember
