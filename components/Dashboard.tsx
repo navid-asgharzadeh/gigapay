@@ -92,7 +92,7 @@ function Dashboard({ members }: { members: Member[] }) {
           </form>
         </div>
 
-        {!allMembers && (
+        {(!allMembers || allMembers.length == 0) && (
           <p className="text-2xl text-center text-gray-300 font-bold">
             No member found!
           </p>
