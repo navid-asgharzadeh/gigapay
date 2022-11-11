@@ -5,7 +5,7 @@ export interface LoginProps {
 export interface ButtonProps {
   children: React.ReactNode
   disabled?: boolean
-  onClick?: () => void
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 export interface InputProps {
@@ -14,4 +14,13 @@ export interface InputProps {
   type: string
   value: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+export interface CardProps {}
+
+export interface MemberProps {
+  name: string
+  country: string
+  phone: string
+  email: string
 }
