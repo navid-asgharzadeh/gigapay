@@ -1,22 +1,29 @@
-import { Member } from '@prisma/client'
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query'
 import Dashboard from 'components/Dashboard'
+import { getAllMembers } from 'utility/apiCalls'
 import { prisma } from '../utility/db'
 
-function dashboard({ members }: { members: Member[] }) {
-  return <Dashboard members={members} />
+function MyDashboard() {
+  const { data: members } = useQuery({
+    queryKey: ['members'],
+    queryFn: getAllMembers,
+  })
+
+  return <Dashboard members={members!} />
 }
 
 export async function getServerSideProps() {
-  const members = await prisma.member.findMany({
-    orderBy: {
-      createdAt: 'desc',
-    },
-  })
+  const queryClient = new QueryClient()
+
+  const members = () => prisma.member.findMany()
+
+  await queryClient.prefetchQuery(['members'], members)
+
   return {
     props: {
-      members: JSON.parse(JSON.stringify(members)),
+      dehydratedState: dehydrate(queryClient),
     },
   }
 }
 
-export default dashboard
+export default MyDashboard

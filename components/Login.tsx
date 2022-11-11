@@ -21,7 +21,6 @@ function Login() {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    console.log(formData)
     setSessionStorage('name', formData.name)
     router.push('/dashboard')
   }
