@@ -6,6 +6,7 @@ import { MemberProps } from 'utility/Interface'
 import Button from './Button'
 import Card from './Card'
 import Input from './Input'
+import { toast } from 'react-toastify'
 
 const initialMember = {
   name: '',
@@ -18,6 +19,7 @@ function Dashboard({ members }: { members: Member[] }) {
   const [allMembers, setAllMembers] = useState<Member[]>(members)
   const [formData, setFormData] = useState<MemberProps>(initialMember)
   const [name, setName] = useState<string | null>('')
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -30,7 +32,7 @@ function Dashboard({ members }: { members: Member[] }) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
+    setLoading(true)
     const data = await fetchData('/create', {
       method: 'POST',
       headers: {
@@ -38,10 +40,15 @@ function Dashboard({ members }: { members: Member[] }) {
       },
       body: JSON.stringify(formData),
     })
+
     if (data.error) {
-      alert(data.error)
+      setLoading(false)
+      return toast.error(data.error)
     }
-    setAllMembers([data.result, ...allMembers])
+    setAllMembers([data, ...allMembers])
+    setFormData(initialMember)
+    setLoading(false)
+    return toast.success('The member was added successfully')
   }
 
   return (
@@ -84,7 +91,9 @@ function Dashboard({ members }: { members: Member[] }) {
               onChange={handleChange}
             />
 
-            <Button disabled={!formData.email}>Add Member</Button>
+            <Button disabled={!formData.email}>
+              {loading ? 'Wait a moment...' : 'Add Member'}
+            </Button>
           </form>
         </div>
 
