@@ -32,8 +32,8 @@ function Dashboard({ members }: { members: Member[] }) {
       setLoading(false)
       toast.success(`${data.name} was added successfully`)
     },
-    onError: (error: AxiosError) => {
-      toast.error(error.message)
+    onError: ({ response }: AxiosError<{ error: string }>) => {
+      toast.error(response?.data.error)
       setLoading(false)
     },
   })

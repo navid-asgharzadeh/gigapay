@@ -37,15 +37,15 @@ function SingleMember({ country, createdAt, email, id, name, phone }: Member) {
       toast.success('Member deleted successfully')
       return route.push('/dashboard')
     },
-    onError: (error: AxiosError) => {
-      toast.error(error.message)
+    onError: ({ response }: AxiosError<{ error: string }>) => {
+      toast.error(response?.data.error)
     },
   })
   const update = useMutation(() => updateMember(id, formData), {
     onMutate: () => {
       setLoading({ ...loading, edit: true })
     },
-    onSuccess: async () => {
+    onSuccess: async ({ data }) => {
       await queryClient.invalidateQueries(
         {
           queryKey: ['member'],
@@ -53,13 +53,13 @@ function SingleMember({ country, createdAt, email, id, name, phone }: Member) {
         { cancelRefetch: true }
       )
 
-      toast.success(`${formData.name} was updated successfully`)
+      toast.success(`${data.name} was updated successfully`)
       setLoading({ ...loading, edit: false })
       setEdit(false)
       setFormData(initialMember)
     },
-    onError: (error: AxiosError) => {
-      toast.error(error.message)
+    onError: ({ response }: AxiosError<{ error: string }>) => {
+      toast.error(response?.data.error)
       setLoading({ ...loading, edit: false })
       setEdit(false)
     },
