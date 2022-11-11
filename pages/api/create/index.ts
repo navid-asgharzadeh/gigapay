@@ -1,6 +1,6 @@
 import { Member, Prisma } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { prisma } from '../../utility/db'
+import { prisma } from '../../../utility/db'
 
 export default async function handler(
   req: NextApiRequest,
