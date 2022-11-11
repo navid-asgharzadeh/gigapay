@@ -1,3 +1,4 @@
+import { useFetch } from 'hooks/useFetch'
 import { getSessionStorage } from 'hooks/useSessionStorage'
 import React, { useEffect, useState } from 'react'
 import { MemberProps } from 'utility/Interface'
@@ -14,7 +15,7 @@ const initialMember = {
 function Dashboard() {
   const [formData, setFormData] = useState<MemberProps>(initialMember)
   const [name, setName] = useState<string | null>('')
-
+  const fetchData = useFetch()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
@@ -24,10 +25,18 @@ function Dashboard() {
     setName(getSessionStorage('name'))
   }, [])
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(formData)
     //TODO: Save data to database
+
+    const data = await fetchData('http://localhost:3000/api/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+    console.log(data)
   }
 
   const isDisabled = () => {
