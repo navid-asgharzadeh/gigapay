@@ -1,12 +1,14 @@
 import { Member } from '@prisma/client'
 import { getSessionStorage } from 'hooks/useSessionStorage'
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { MemberProps } from 'utility/Interface'
 import Button from './Button'
 import Card from './Card'
 import Input from './Input'
 import { toast } from 'react-toastify'
+import { createMember } from 'utility/apiCalls'
+import { useMutation } from '@tanstack/react-query'
+import type { AxiosError } from 'axios'
 
 const initialMember = {
   name: '',
@@ -20,6 +22,21 @@ function Dashboard({ members }: { members: Member[] }) {
   const [formData, setFormData] = useState<MemberProps>(initialMember)
   const [name, setName] = useState<string | null>('')
   const [loading, setLoading] = useState(false)
+  const createNewMember = useMutation(() => createMember(formData), {
+    onMutate: () => {
+      setLoading(true)
+    },
+    onSuccess: async ({ data }) => {
+      setAllMembers([data, ...allMembers])
+      setFormData(initialMember)
+      setLoading(false)
+      toast.success(`${data.name} was added successfully`)
+    },
+    onError: (error: AxiosError) => {
+      toast.error(error.message)
+      setLoading(false)
+    },
+  })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -32,18 +49,7 @@ function Dashboard({ members }: { members: Member[] }) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setLoading(true)
-
-    const { data, status } = await axios.post('/api/create', formData)
-
-    if (status !== 201) {
-      setLoading(false)
-      return toast.error(data.error)
-    }
-    setAllMembers([data, ...allMembers])
-    setFormData(initialMember)
-    setLoading(false)
-    return toast.success(`${data.name} was added successfully`)
+    createNewMember.mutate()
   }
 
   return (
@@ -92,14 +98,14 @@ function Dashboard({ members }: { members: Member[] }) {
           </form>
         </div>
 
-        {allMembers.length < 0 && (
+        {!allMembers && (
           <p className="text-2xl text-center text-gray-300 font-bold">
             No member found!
           </p>
         )}
 
         <div className="grid gap-8 space-x-1 p-4 lg:grid-cols-2">
-          {allMembers.map((member) => (
+          {allMembers?.map((member) => (
             <Card
               key={member.id}
               country={member.country}
