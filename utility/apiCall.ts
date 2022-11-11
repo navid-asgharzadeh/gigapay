@@ -6,8 +6,8 @@ export const fetchData = async (url: string, options: RequestInit) => {
   try {
     const res = await fetch(`${origin}/api${url}`, options)
     const result = await res.json()
-    return { result, error: null }
+    return result
   } catch (error) {
-    return { error }
+    return error
   }
 }
