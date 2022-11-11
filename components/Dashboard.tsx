@@ -1,7 +1,7 @@
 import { Member } from '@prisma/client'
 import { getSessionStorage } from 'hooks/useSessionStorage'
 import React, { useEffect, useState } from 'react'
-import { fetchData } from 'utility/apiCall'
+import axios from 'axios'
 import { MemberProps } from 'utility/Interface'
 import Button from './Button'
 import Card from './Card'
@@ -33,22 +33,17 @@ function Dashboard({ members }: { members: Member[] }) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
-    const data = await fetchData('/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
 
-    if (data.error) {
+    const { data, status } = await axios.post('/api/create', formData)
+
+    if (status !== 201) {
       setLoading(false)
       return toast.error(data.error)
     }
     setAllMembers([data, ...allMembers])
     setFormData(initialMember)
     setLoading(false)
-    return toast.success('The member was added successfully')
+    return toast.success(`${data.name} was added successfully`)
   }
 
   return (

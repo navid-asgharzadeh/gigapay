@@ -20,7 +20,7 @@ export default async function handler(
         },
       })
 
-      return res.status(200).json(member)
+      return res.status(201).json(member)
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2002') {
