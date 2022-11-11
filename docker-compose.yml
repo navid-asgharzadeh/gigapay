@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  app:
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+    ports:
+      - '3000:3000'
+    environment:
+      - DATABASE_URL=postgresql://postgres:JtcO6czE0jhos4oQzUX5@containers-us-west-100.railway.app:6441/railway
