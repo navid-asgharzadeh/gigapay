@@ -2,22 +2,15 @@ import { Member } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
 
-function Card({
+export const CardContent = ({
   country,
+  createdAt,
   email,
   name,
   phone,
-  createdAt,
-  id,
-}: Omit<Member, 'updatedAt'>) {
+}: Omit<Member, 'updatedAt' | 'id'>) => {
   return (
-    <Link
-      href={{
-        pathname: '/member/[id]',
-        query: { id },
-      }}
-      className="relative block overflow-hidden rounded-lg border border-gray-100 p-8 shadow-xl"
-    >
+    <div className="relative block overflow-hidden rounded-lg border border-gray-100 p-8 shadow-xl">
       <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
 
       <div className="justify-between sm:flex">
@@ -59,6 +52,32 @@ function Card({
           <dd className="text-xs text-gray-500">{phone || 'unknown'}</dd>
         </div>
       </dl>
+    </div>
+  )
+}
+
+function Card({
+  country,
+  email,
+  name,
+  phone,
+  createdAt,
+  id,
+}: Omit<Member, 'updatedAt'>) {
+  return (
+    <Link
+      href={{
+        pathname: '/member/[id]',
+        query: { id },
+      }}
+    >
+      <CardContent
+        country={country}
+        email={email}
+        name={name}
+        phone={phone}
+        createdAt={createdAt}
+      />
     </Link>
   )
 }
