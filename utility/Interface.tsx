@@ -6,6 +6,7 @@ export interface ButtonProps {
   children: React.ReactNode
   disabled?: boolean
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
+  danger?: boolean
 }
 
 export interface InputProps {
