@@ -11,12 +11,7 @@ import Input from './Input'
 import type { AxiosError } from 'axios'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
-const initialMember = {
-  name: '',
-  country: '',
-  phone: '',
-  email: '',
-}
+import { initialMember } from 'constants/const'
 
 function SingleMember({ country, createdAt, email, id, name, phone }: Member) {
   const queryClient = useQueryClient()
