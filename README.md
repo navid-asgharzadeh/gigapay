@@ -15,7 +15,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 1. Run `docker-compose up` to start the development server
 2. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-> **Note:** Alternatively you can take a look at the deployed version of the app [here](gigapay.vercel.app) 🚀
+> **Note:** Alternatively you can take a look at the deployed version of the app [here](https://gigapay.vercel.app/) 🚀
 
 ## what would I do next?
 
@@ -25,3 +25,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Add E2E tests
 - Define different roles for users and give them proper access
 - Add separate docker files for development and production environment
+- Add form validation using `react-hook-form` and `zod`
