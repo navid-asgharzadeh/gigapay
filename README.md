@@ -24,3 +24,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Add a better UI
 - Add E2E tests
 - Define different roles for users and give them proper access
+- Add separate docker files for development and production environment
