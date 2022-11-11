@@ -50,7 +50,7 @@ function Card({
         <div className="flex flex-col-reverse">
           <dt className="text-sm font-medium text-gray-600">Created at</dt>
           <dd className="text-xs text-gray-500">
-            {createdAt.toLocaleString()}
+            {createdAt?.toLocaleString() || 'unknown'}
           </dd>
         </div>
 
