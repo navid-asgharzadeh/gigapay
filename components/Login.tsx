@@ -78,8 +78,8 @@ function Login() {
 
               <div className="col-span-6">
                 <p className="text-sm text-gray-500">
-                  By creating an account, you agree to our terms and conditions
-                  and privacy policy .
+                  Please add any name with at least 3 characters and you are
+                  good to go 🚀
                 </p>
               </div>
 
