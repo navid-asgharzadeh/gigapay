@@ -11,6 +11,7 @@ const initialFormData = {
 }
 function Login() {
   const [formData, setFormData] = useState<LoginProps>(initialFormData)
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -21,6 +22,7 @@ function Login() {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
+    setLoading(true)
     setSessionStorage('name', formData.name)
     router.push('/dashboard')
   }
@@ -86,7 +88,7 @@ function Login() {
                   disabled={formData.name.length < 3}
                   onClick={handleSubmit}
                 >
-                  Create an account
+                  {loading ? 'Loading...' : 'Login'}
                 </Button>
               </div>
             </form>
