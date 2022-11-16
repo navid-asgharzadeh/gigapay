@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dev:migrate": "prisma migrate deploy && npm run dev",
+    "dev:up": "docker-compose -f docker-compose-dev.yml up -d",
+    "down": "docker-compose -f docker-compose-dev.yml down"
   },
   "dependencies": {
     "@prisma/client": "^4.6.1",
