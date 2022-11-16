@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "dev:migrate": "prisma migrate deploy && npm run dev",
-    "dev:up": "docker-compose -f docker-compose-dev.yml up -d",
+    "dev:migrate": "dotenv -e .env.development -- npx prisma migrate deploy",
+    "dev:db:up": "docker-compose -f docker-compose-dev.yml up -d",
     "down": "docker-compose -f docker-compose-dev.yml down"
   },
   "dependencies": {

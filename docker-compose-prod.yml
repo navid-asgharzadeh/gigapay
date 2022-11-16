@@ -8,5 +8,5 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - '3000:3000'
-    environment:
-      - DATABASE_URL=postgresql://postgres:JtcO6czE0jhos4oQzUX5@containers-us-west-100.railway.app:6441/railway
+    env_file:
+      - .env.production
